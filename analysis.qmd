@@ -10,21 +10,21 @@ format:
     css: styles.css
 ---
 
-### Background:
+### Background
 
 Healthcare costs for employed women in the United States are estimated to be \$15 billion greater than for employed men from the age of 19 to 64 in 2023, according to research by Deloitte [@Deloitte]. This economic strain contributes to the existing pay gap between genders and continues even when services related to maternity are not considered. What about elderly people above 65 years old who are more likely to face severe and chronic diseases? Will the disparity persist, or even exaggerate, for older man and women?
 
 ![Figure 1: Healthcare benefit gap in 2023](images/healthcare_cost.jpeg){#fig:healthcareCost width="500px" fig-cap="Figure 1: Healthcare spending summary in 2023"}
 
-### Question:
+### Question
 
 For this analysis, I am interested in the question of whether older (at least 65 years of age) men and women of the same age use roughly the same quantity of medical services measured by their annual medical expenditures.
 
-### Audience:
+### Audience
 
 This analysis can help healthcare policymakes to better understand how medical needs and expenses differ by gender among the elderly so that they can tailor more effective and equitable healthcare policies.
 
-### Dataset:
+### Dataset
 
 The data of annual medical expenditures for men and women from 65 to 95 years of age were obtained and adjusted from the [1987 National Medical Expenditure Survey](https://wonder.cdc.gov/wonder/sci_data/surveys/nmes/nmes.asp) [@NMES]. To answer the research question above, I used three variables extracted from the data set: participant's age (*lastage*), gender (*female*), and total health care expenditures (*totalexp*). A full list of data dictionary can be found [here](https://wonder.cdc.gov/wonder/sci_data/surveys/nmes/type_txt/puf18.asp).
 
@@ -32,7 +32,7 @@ The data of annual medical expenditures for men and women from 65 to 95 years of
 The data and analysis are adopted from homework of Methods in Biostatistics.
 :::
 
-### Analysis:
+### Analysis
 
 #### Step 0: data set preparation.
 
