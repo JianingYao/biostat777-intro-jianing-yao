@@ -1,1 +1,1 @@
-Sitemap: https://github.com/JianingYao/biostat777-intro-jianing-yao/sitemap.xml
+Sitemap: https://JianingYao.github.io/biostat777-intro-jianing-yao/sitemap.xml
