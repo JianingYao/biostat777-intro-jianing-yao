@@ -1,0 +1,7 @@
+---
+title: "Welcome!"
+---
+
+Welcome to my personal website! My name is Jianing Yao. I am a first-year Biostatistics PhD student at Johns Hopkins Bloomberg School of Public Health.
+
+<img src="images/Jianing-Yao.png" alt="My photo" width="500"/>

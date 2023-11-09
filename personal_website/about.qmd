@@ -1,0 +1,37 @@
+---
+title: "About"
+---
+
+**My name is Jianing Yao. I am a first-year Ph.D. student at the Department of Biostatistics at Johns Hopkins Bloomberg School of Public Health (JHSPH). I am currently working with Dr. Stephanie Hicks on statistical and computational genomics. My focus is on the development of methods driven by specific problems, as well as open-source software tools to facilitate research in these areas.**
+
+### Educational background
+
+-   Johns Hopkins Bloomberg School of Public Health (JHSPH)
+
+    -   Ph.D. student, Biostatistics (2023 - Current)
+
+    -   Master of Science, Biostatistics (2021 - 2023)
+
+-   University of Southern California (USC)
+
+    -   Bachelor of Science, Applied and Computational Math (2016 - 2020)
+
+    -   Bachelor of Arts, Psychology (2016 - 2020)
+
+### Professional background/experience
+
+-   Spatial domain detection in spatial transcriptomics using GNN
+
+    -   *Advised by Dr. Stephanie Hicks, JHSPH*
+
+-   Ancestry inference from single-cell RNA-seq data
+
+    -   *Advised by Dr. Steven Gazal, USC*
+
+-   Longitudinal twin data analysis to investigate genetic association between child aggression and parenting
+
+    -   *Advised by Dr. Laura Baker, USC*
+
+### Research interests
+
+-   Developing scalable clustering methods and software for spatial omics data.
