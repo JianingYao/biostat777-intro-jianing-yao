@@ -28,7 +28,7 @@ This analysis can help healthcare policymakes to better understand how medical n
 
 The data of annual medical expenditures for men and women from 65 to 95 years of age were obtained and adjusted from the [1987 National Medical Expenditure Survey](https://wonder.cdc.gov/wonder/sci_data/surveys/nmes/nmes.asp) [@NMES]. To answer the research question above, I used three variables extracted from the data set: participant's age (*lastage*), gender (*female*), and total health care expenditures (*totalexp*). A full list of data dictionary can be found [here](https://wonder.cdc.gov/wonder/sci_data/surveys/nmes/type_txt/puf18.asp).
 
-::: {.callout-note}
+::: callout-note
 The data and analysis are adopted from homework of Methods in Biostatistics.
 :::
 
@@ -76,7 +76,6 @@ summary_table <- kable(summary, format = "html", table.attr = "class='table tabl
 summary_table
 ```
 
-
 ```{r fig.cap="Figure 2: Medical expenditures in thousands of dollars by gender for participants above 65 years old."}
 library(ggplot2)
 ggplot(data = d, aes(x = lastage, y = totalexp / 1000, color = Gender)) +
@@ -92,7 +91,7 @@ ggplot(data = d, aes(x = lastage, y = totalexp / 1000, color = Gender)) +
 
 **First, we fit a full linear regression model with age, linear splines with knots at 75 and 85 years of age, gender, and interactions between predictors.**
 
-General MLR model: 
+General MLR model:
 
 $$
 \begin{align*}
@@ -107,7 +106,6 @@ $$
 Note that constant variance (homoscedasticity) is assumed in this linear regression model.
 :::
 
-
 ```{r}
 library(broom)
 
@@ -121,14 +119,12 @@ kable(tidy_mlr.fit, caption = "Linear model coefficients of the full model", dig
   kable_styling(bootstrap_options = c("striped", "hover"), full_width = F, position = "left")
 ```
 
-
-::: {.column-margin}
-- `agem65`: age after centered at 65
-- `age_sp1`: the number of years if a person is over 75; if not, age_sp1 = 0
-- `age_sp2`: the number of years if a person is over 85; if not, age_sp2 = 0
-- `GenderFemale`: indicator of female
+::: column-margin
+-   `agem65`: age after centered at 65
+-   `age_sp1`: the number of years if a person is over 75; if not, age_sp1 = 0
+-   `age_sp2`: the number of years if a person is over 85; if not, age_sp2 = 0
+-   `GenderFemale`: indicator of female
 :::
-
 
 ```{r fig.cap="Figure 3: Medical expenditures in thousands of dollars by gender for participants above 65 years old, with the fitted lines estimated from the full linear regression model.", warning=FALSE}
 d$observed_y = d$totalexp / 1000
@@ -142,14 +138,11 @@ ggplot(d, aes(x = lastage, y = observed_y, color=Gender)) +
     theme_bw()
 ```
 
-
-::: {.column-margin}
+::: column-margin
 `geom_jitter` to plot jittered points for better visualization
 :::
 
-
 **Zoom in on the plot to show the average medical expenditures for females and males across age.**
-
 
 ```{r fig.cap="Figure 4: Zoomed in plot of medical expenditures in thousands of dollars by gender for participants above 65 years old, with the fitted lines estimated from the full linear regression model.", warning=FALSE}
 ggplot(d, aes(x = lastage, y = observed_y, color=Gender)) +
@@ -161,9 +154,7 @@ ggplot(d, aes(x = lastage, y = observed_y, color=Gender)) +
     theme_bw()
 ```
 
-
 **Plot expected difference between women and men in expenditures as a function of age.**
-
 
 ```{r fig.cap="Figure 5: Expected difference between women and men in medical expenditures as a function of age. The dotted line indicates no difference. 95% confidence interval is illustrated in the shaded region.", warning=FALSE}
 age = seq(65,95)
@@ -190,18 +181,16 @@ ggplot(diffage,aes(x = age,y = expectDiff)) +
     theme_bw() 
 ```
 
-
 #### Step 3: linear regression model with age
 
 **Further, we want to test the null hypothesis that on average, males and females use the same quantity of medical services; i.e. are the mean expenditures at any age the same for males and females?**
-
 
 $$
 \begin{align*}
 H_0: & \ \beta_4 = \beta_5 = \beta_6 = \beta_7 = 0 \\
 H_a: & \ \text{at least one of } \beta_4, \beta_5, \beta_6, \text{ or } \beta_7 \text{ is not zero.}
 \end{align*}
-$$ 
+$$
 
 **We can fit a reduced a model with only age-related predictors:**
 
@@ -211,7 +200,6 @@ Y_i = & \ \beta_0 + \beta_1(age_i-65) + \beta_2(age_i-75)^+ + \beta_3(age_i-85)^
       & \ \text{where } \epsilon_i \sim N(0, \sigma^2)
 \end{align*}
 $$
-
 
 ```{r, message=FALSE}
 mlr.fit0 <- lm(totalexp ~ agem65 + age_sp1 + age_sp2, data = d)
@@ -223,7 +211,6 @@ kable(tidy_mlr.fit0, caption = "Linear model coefficients of the reduced model",
       col.names = c("Term", "Estimate", "Std. Error", "t value", "Pr(>|t|)")) %>%
   kable_styling(bootstrap_options = c("striped", "hover"), full_width = F, position = "left")
 ```
-
 
 ```{r, message=FALSE}
 # likelihood ratio test
@@ -237,7 +224,7 @@ lrtest(mlr.fit0, mlr.fit)
 
 In this example analysis, we utilized the data from 1987 National Medical Expenditure Survey (NMES) to examine the annual change of total medical expenditure for older people (from age 65 to 94) and its relationship with sex. We first fitted a linear spline regression model on total medical expenditure with age and sex and the interaction between the two factors. The regression result showed that none of the predictors of age and sex were significant except for the intercept, even though the scatter plot indicated some disparity between male and female at age 65 - 75 and above 85 (Figure 4). The 95% confidence interval for estimated difference in average expenditures comparing men and women as a function of age suggested no significant difference due to sex (Figure 5). We performed a likelihood ratio test to compare the full model with a reduced model excluding the factor sex and concluded that we failed to reject the null hypothesis that men and women have the same quantity of medical expenditures at any age.
 
-::: {.callout-important collapse="true"}
+::: {.callout-important collapse="false"}
 This analysis is based on the assumption that residuals are normally distributed and homoscedastic, which requires further validation. If such assumptions are violated, standard errors and confidence intervals are likely biased, and a more appropriate analysis approach need to be adapted.
 :::
 
@@ -245,16 +232,10 @@ However, more recent analyses indeed demonstrated noticeable discrepancy between
 
 ![Figure 6: Income and out-of-pocket expenses among older medicare beneficiaries, by gender and age](images/healthcare_2009.webp){width="500px"}
 
-
-
 ### Functions
-- `dplyr`: `select()`, `filter()`, `mutate()`, `group_by()`,`summarise()`
-- `ggplot2`: `geom_point()`, `geom_jitter`, `geom_line`, `geom_hline`, `geom_ribbon`
 
-   
+-   `dplyr`: `select()`, `filter()`, `mutate()`, `group_by()`,`summarise()`
+-   `ggplot2`: `geom_point()`, `geom_jitter`, `geom_line`, `geom_hline`, `geom_ribbon`
 
-:::{#bibliography}
+::: {#bibliography}
 :::
-
-
-
