@@ -1,0 +1,9 @@
+/* css styles */
+/* Change the color of all headings to dark green */
+h1, h2, h3, h4, h5, h6 {
+    color: #024930; /* This is the hex code for dark green */
+}
+
+figcaption {
+    text-align: center;
+}
