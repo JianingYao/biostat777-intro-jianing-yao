@@ -646,7 +646,7 @@ Model 2: totalexp ~ (agem65 + age_sp1 + age_sp2) + Gender + Gender * (agem65 +
 <h3 class="anchored" data-anchor-id="results-and-summary">Results and Summary</h3>
 <p>In this example analysis, we utilized the data from 1987 National Medical Expenditure Survey (NMES) to examine the annual change of total medical expenditure for older people (from age 65 to 94) and its relationship with sex. We first fitted a linear spline regression model on total medical expenditure with age and sex and the interaction between the two factors. The regression result showed that none of the predictors of age and sex were significant except for the intercept, even though the scatter plot indicated some disparity between male and female at age 65 - 75 and above 85 (Figure 4). The 95% confidence interval for estimated difference in average expenditures comparing men and women as a function of age suggested no significant difference due to sex (Figure 5). We performed a likelihood ratio test to compare the full model with a reduced model excluding the factor sex and concluded that we failed to reject the null hypothesis that men and women have the same quantity of medical expenditures at any age.</p>
 <div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -655,7 +655,7 @@ Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>This analysis is based on the assumption that residuals are normally distributed and homoscedastic, which requires further validation. If such assumptions are violated, standard errors and confidence intervals are likely biased, and a more appropriate analysis approach need to be adapted.</p>
 </div>
@@ -1010,7 +1010,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>The data of annual medical expenditures for men and women from 65 to 95 years of age were obtained and adjusted from the <span class="co">[</span><span class="ot">1987 National Medical Expenditure Survey</span><span class="co">](https://wonder.cdc.gov/wonder/sci_data/surveys/nmes/nmes.asp)</span> <span class="co">[</span><span class="ot">@NMES</span><span class="co">]</span>. To answer the research question above, I used three variables extracted from the data set: participant's age (*lastage*), gender (*female*), and total health care expenditures (*totalexp*). A full list of data dictionary can be found <span class="co">[</span><span class="ot">here</span><span class="co">](https://wonder.cdc.gov/wonder/sci_data/surveys/nmes/type_txt/puf18.asp)</span>.</span>
 <span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
 <span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>The data and analysis are adopted from homework of Methods in Biostatistics.</span>
 <span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a></span>
@@ -1058,187 +1058,169 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a>summary_table</span>
 <span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig.cap="Figure 2: Medical expenditures in thousands of dollars by gender for participants above 65 years old."}</span></span>
-<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> d, <span class="fu">aes</span>(<span class="at">x =</span> lastage, <span class="at">y =</span> totalexp <span class="sc">/</span> <span class="dv">1000</span>, <span class="at">color =</span> Gender)) <span class="sc">+</span></span>
-<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Gender) <span class="sc">+</span></span>
-<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Age (in years)"</span>, <span class="at">y =</span> <span class="st">"Medical Expenditure (in $1000s)"</span>, <span class="at">title =</span> <span class="st">"Medical Expenditures (in $1000s) by Gender"</span>) <span class="sc">+</span></span>
-<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">200</span>,<span class="dv">20</span>),<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">200</span>)) <span class="sc">+</span></span>
-<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">65</span>,<span class="dv">95</span>,<span class="dv">5</span>), <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">65</span>,<span class="dv">95</span>)) <span class="sc">+</span></span>
-<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span>
-<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Step 2: linear regression model with age and gender</span></span>
-<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a>**First, we fit a full linear regression model with age, linear splines with knots at 75 and 85 years of age, gender, and interactions between predictors.**</span>
-<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a>General MLR model: </span>
-<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a>\begin{align*}</span>
-<span id="cb11-99"><a href="#cb11-99" aria-hidden="true" tabindex="-1"></a>Y_i = &amp; \ \beta_0 + \beta_1(age_i-65) + \beta_2(age_i-75)^+ + \beta_3(age_i-85)^+ <span class="sc">\\</span></span>
-<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a>      &amp; + \beta_4\text{female}_i + \beta_5\text{female}_i \cdot (age_i-65) <span class="sc">\\</span></span>
-<span id="cb11-101"><a href="#cb11-101" aria-hidden="true" tabindex="-1"></a>      &amp; + \beta_6\text{female}_i \cdot (age_i-75)^+ + \beta_7\text{female}_i \cdot (age_i-85)^+ + \epsilon_i \text{ , } <span class="sc">\\</span></span>
-<span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a>      &amp; \ \text{where } \epsilon_i \sim N(0, \sigma^2)</span>
-<span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a>\end{align*}</span>
-<span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution title="Model Assumption"}</span>
-<span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a>Note that constant variance (homoscedasticity) is assumed in this linear regression model.</span>
-<span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-110"><a href="#cb11-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-113"><a href="#cb11-113" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig.cap="Figure 2: Medical expenditures in thousands of dollars by gender for participants above 65 years old."}</span></span>
+<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> d, <span class="fu">aes</span>(<span class="at">x =</span> lastage, <span class="at">y =</span> totalexp <span class="sc">/</span> <span class="dv">1000</span>, <span class="at">color =</span> Gender)) <span class="sc">+</span></span>
+<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Gender) <span class="sc">+</span></span>
+<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Age (in years)"</span>, <span class="at">y =</span> <span class="st">"Medical Expenditure (in $1000s)"</span>, <span class="at">title =</span> <span class="st">"Medical Expenditures (in $1000s) by Gender"</span>) <span class="sc">+</span></span>
+<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">200</span>,<span class="dv">20</span>),<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">200</span>)) <span class="sc">+</span></span>
+<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">65</span>,<span class="dv">95</span>,<span class="dv">5</span>), <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">65</span>,<span class="dv">95</span>)) <span class="sc">+</span></span>
+<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span>
+<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Step 2: linear regression model with age and gender</span></span>
+<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a>**First, we fit a full linear regression model with age, linear splines with knots at 75 and 85 years of age, gender, and interactions between predictors.**</span>
+<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a>General MLR model:</span>
+<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a>\begin{align*}</span>
+<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a>Y_i = &amp; \ \beta_0 + \beta_1(age_i-65) + \beta_2(age_i-75)^+ + \beta_3(age_i-85)^+ <span class="sc">\\</span></span>
+<span id="cb11-99"><a href="#cb11-99" aria-hidden="true" tabindex="-1"></a>      &amp; + \beta_4\text{female}_i + \beta_5\text{female}_i \cdot (age_i-65) <span class="sc">\\</span></span>
+<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a>      &amp; + \beta_6\text{female}_i \cdot (age_i-75)^+ + \beta_7\text{female}_i \cdot (age_i-85)^+ + \epsilon_i \text{ , } <span class="sc">\\</span></span>
+<span id="cb11-101"><a href="#cb11-101" aria-hidden="true" tabindex="-1"></a>      &amp; \ \text{where } \epsilon_i \sim N(0, \sigma^2)</span>
+<span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a>\end{align*}</span>
+<span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution title="Model Assumption"}</span>
+<span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a>Note that constant variance (homoscedasticity) is assumed in this linear regression model.</span>
+<span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-111"><a href="#cb11-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-112"><a href="#cb11-112" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb11-113"><a href="#cb11-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a>mlr.fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(totalexp <span class="sc">~</span> (agem65 <span class="sc">+</span> age_sp1 <span class="sc">+</span> age_sp2) <span class="sc">+</span> Gender <span class="sc">+</span> Gender<span class="sc">*</span>(agem65 <span class="sc">+</span> age_sp1 <span class="sc">+</span> age_sp2), <span class="at">data =</span> d)</span>
 <span id="cb11-115"><a href="#cb11-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a>mlr.fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(totalexp <span class="sc">~</span> (agem65 <span class="sc">+</span> age_sp1 <span class="sc">+</span> age_sp2) <span class="sc">+</span> Gender <span class="sc">+</span> Gender<span class="sc">*</span>(agem65 <span class="sc">+</span> age_sp1 <span class="sc">+</span> age_sp2), <span class="at">data =</span> d)</span>
-<span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-118"><a href="#cb11-118" aria-hidden="true" tabindex="-1"></a>tidy_mlr.fit <span class="ot">&lt;-</span> <span class="fu">tidy</span>(mlr.fit)</span>
-<span id="cb11-119"><a href="#cb11-119" aria-hidden="true" tabindex="-1"></a>tidy_mlr.fit <span class="ot">&lt;-</span> tidy_mlr.fit[, <span class="fu">c</span>(<span class="st">"term"</span>, <span class="st">"estimate"</span>, <span class="st">"std.error"</span>, <span class="st">"statistic"</span>, <span class="st">"p.value"</span>)]</span>
-<span id="cb11-120"><a href="#cb11-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-121"><a href="#cb11-121" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tidy_mlr.fit, <span class="at">caption =</span> <span class="st">"Linear model coefficients of the full model"</span>, <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">format =</span> <span class="st">"html"</span>, </span>
-<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Term"</span>, <span class="st">"Estimate"</span>, <span class="st">"Std. Error"</span>, <span class="st">"t value"</span>, <span class="st">"Pr(&gt;|t|)"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>), <span class="at">full_width =</span> F, <span class="at">position =</span> <span class="st">"left"</span>)</span>
-<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-125"><a href="#cb11-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-126"><a href="#cb11-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-127"><a href="#cb11-127" aria-hidden="true" tabindex="-1"></a>::: {.column-margin}</span>
-<span id="cb11-128"><a href="#cb11-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`agem65`</span>: age after centered at 65</span>
-<span id="cb11-129"><a href="#cb11-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`age_sp1`</span>: the number of years if a person is over 75; if not, age_sp1 = 0</span>
-<span id="cb11-130"><a href="#cb11-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`age_sp2`</span>: the number of years if a person is over 85; if not, age_sp2 = 0</span>
-<span id="cb11-131"><a href="#cb11-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`GenderFemale`</span>: indicator of female</span>
-<span id="cb11-132"><a href="#cb11-132" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-133"><a href="#cb11-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-134"><a href="#cb11-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig.cap="Figure 3: Medical expenditures in thousands of dollars by gender for participants above 65 years old, with the fitted lines estimated from the full linear regression model.", warning=FALSE}</span></span>
-<span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>observed_y <span class="ot">=</span> d<span class="sc">$</span>totalexp <span class="sc">/</span> <span class="dv">1000</span></span>
-<span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>predicted_y <span class="ot">=</span> mlr.fit<span class="sc">$</span>fitted.values <span class="sc">/</span> <span class="dv">1000</span></span>
-<span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d, <span class="fu">aes</span>(<span class="at">x =</span> lastage, <span class="at">y =</span> observed_y, <span class="at">color=</span>Gender)) <span class="sc">+</span></span>
-<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">size =</span> <span class="fl">0.6</span>) <span class="sc">+</span> <span class="co"># use jittered points for better visualization </span></span>
-<span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> lastage, <span class="at">y =</span> predicted_y)) <span class="sc">+</span></span>
-<span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">200</span>,<span class="dv">20</span>),<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">200</span>)) <span class="sc">+</span></span>
-<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">65</span>,<span class="dv">95</span>,<span class="dv">5</span>),<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">65</span>,<span class="dv">95</span>)) <span class="sc">+</span></span>
-<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Age (in years)"</span>, <span class="at">y =</span> <span class="st">"Medical Expenditure (in $1000s)"</span>, <span class="at">title =</span> <span class="st">"Medical Expenditures (in $1000s) by Age and Gender with fitted line"</span>) <span class="sc">+</span></span>
-<span id="cb11-144"><a href="#cb11-144" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span>
-<span id="cb11-145"><a href="#cb11-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a>tidy_mlr.fit <span class="ot">&lt;-</span> <span class="fu">tidy</span>(mlr.fit)</span>
+<span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a>tidy_mlr.fit <span class="ot">&lt;-</span> tidy_mlr.fit[, <span class="fu">c</span>(<span class="st">"term"</span>, <span class="st">"estimate"</span>, <span class="st">"std.error"</span>, <span class="st">"statistic"</span>, <span class="st">"p.value"</span>)]</span>
+<span id="cb11-118"><a href="#cb11-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-119"><a href="#cb11-119" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tidy_mlr.fit, <span class="at">caption =</span> <span class="st">"Linear model coefficients of the full model"</span>, <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">format =</span> <span class="st">"html"</span>, </span>
+<span id="cb11-120"><a href="#cb11-120" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Term"</span>, <span class="st">"Estimate"</span>, <span class="st">"Std. Error"</span>, <span class="st">"t value"</span>, <span class="st">"Pr(&gt;|t|)"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-121"><a href="#cb11-121" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>), <span class="at">full_width =</span> F, <span class="at">position =</span> <span class="st">"left"</span>)</span>
+<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a>::: column-margin</span>
+<span id="cb11-125"><a href="#cb11-125" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`agem65`</span>: age after centered at 65</span>
+<span id="cb11-126"><a href="#cb11-126" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`age_sp1`</span>: the number of years if a person is over 75; if not, age_sp1 = 0</span>
+<span id="cb11-127"><a href="#cb11-127" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`age_sp2`</span>: the number of years if a person is over 85; if not, age_sp2 = 0</span>
+<span id="cb11-128"><a href="#cb11-128" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`GenderFemale`</span>: indicator of female</span>
+<span id="cb11-129"><a href="#cb11-129" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-130"><a href="#cb11-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-131"><a href="#cb11-131" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig.cap="Figure 3: Medical expenditures in thousands of dollars by gender for participants above 65 years old, with the fitted lines estimated from the full linear regression model.", warning=FALSE}</span></span>
+<span id="cb11-132"><a href="#cb11-132" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>observed_y <span class="ot">=</span> d<span class="sc">$</span>totalexp <span class="sc">/</span> <span class="dv">1000</span></span>
+<span id="cb11-133"><a href="#cb11-133" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>predicted_y <span class="ot">=</span> mlr.fit<span class="sc">$</span>fitted.values <span class="sc">/</span> <span class="dv">1000</span></span>
+<span id="cb11-134"><a href="#cb11-134" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d, <span class="fu">aes</span>(<span class="at">x =</span> lastage, <span class="at">y =</span> observed_y, <span class="at">color=</span>Gender)) <span class="sc">+</span></span>
+<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">size =</span> <span class="fl">0.6</span>) <span class="sc">+</span> <span class="co"># use jittered points for better visualization </span></span>
+<span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> lastage, <span class="at">y =</span> predicted_y)) <span class="sc">+</span></span>
+<span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">200</span>,<span class="dv">20</span>),<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">200</span>)) <span class="sc">+</span></span>
+<span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">65</span>,<span class="dv">95</span>,<span class="dv">5</span>),<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">65</span>,<span class="dv">95</span>)) <span class="sc">+</span></span>
+<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Age (in years)"</span>, <span class="at">y =</span> <span class="st">"Medical Expenditure (in $1000s)"</span>, <span class="at">title =</span> <span class="st">"Medical Expenditures (in $1000s) by Age and Gender with fitted line"</span>) <span class="sc">+</span></span>
+<span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span>
+<span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a>::: column-margin</span>
+<span id="cb11-144"><a href="#cb11-144" aria-hidden="true" tabindex="-1"></a><span class="in">`geom_jitter`</span> to plot jittered points for better visualization</span>
+<span id="cb11-145"><a href="#cb11-145" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb11-146"><a href="#cb11-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-147"><a href="#cb11-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-148"><a href="#cb11-148" aria-hidden="true" tabindex="-1"></a>::: {.column-margin}</span>
-<span id="cb11-149"><a href="#cb11-149" aria-hidden="true" tabindex="-1"></a><span class="in">`geom_jitter`</span> to plot jittered points for better visualization</span>
-<span id="cb11-150"><a href="#cb11-150" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-151"><a href="#cb11-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-152"><a href="#cb11-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a>**Zoom in on the plot to show the average medical expenditures for females and males across age.**</span>
-<span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig.cap="Figure 4: Zoomed in plot of medical expenditures in thousands of dollars by gender for participants above 65 years old, with the fitted lines estimated from the full linear regression model.", warning=FALSE}</span></span>
-<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d, <span class="fu">aes</span>(<span class="at">x =</span> lastage, <span class="at">y =</span> observed_y, <span class="at">color=</span>Gender)) <span class="sc">+</span></span>
-<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> lastage, <span class="at">y =</span> predicted_y)) <span class="sc">+</span></span>
-<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">15</span>,<span class="dv">5</span>),<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">15</span>)) <span class="sc">+</span></span>
-<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">65</span>,<span class="dv">95</span>,<span class="dv">5</span>),<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">65</span>,<span class="dv">95</span>)) <span class="sc">+</span></span>
-<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Age (in years)"</span>, <span class="at">y =</span> <span class="st">"Medical Expenditure (in $1000s)"</span>, <span class="at">title =</span> <span class="st">"Medical Expenditures (in $1000s) by Age and Gender with fitted line"</span>) <span class="sc">+</span></span>
-<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span>
-<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-167"><a href="#cb11-167" aria-hidden="true" tabindex="-1"></a>**Plot expected difference between women and men in expenditures as a function of age.**</span>
-<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-169"><a href="#cb11-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig.cap="Figure 5: Expected difference between women and men in medical expenditures as a function of age. The dotted line indicates no difference. 95% confidence interval is illustrated in the shaded region.", warning=FALSE}</span></span>
-<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a>age <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">65</span>,<span class="dv">95</span>)</span>
-<span id="cb11-172"><a href="#cb11-172" aria-hidden="true" tabindex="-1"></a>agesp1 <span class="ot">=</span> <span class="fu">ifelse</span>(age<span class="sc">&gt;=</span><span class="dv">75</span>,age<span class="dv">-75</span>,<span class="dv">0</span>)</span>
-<span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a>agesp2 <span class="ot">=</span> <span class="fu">ifelse</span>(age<span class="sc">&gt;=</span><span class="dv">85</span>,age<span class="dv">-85</span>,<span class="dv">0</span>)</span>
-<span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a>age65 <span class="ot">=</span> age<span class="dv">-65</span></span>
-<span id="cb11-175"><a href="#cb11-175" aria-hidden="true" tabindex="-1"></a>AGE <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">31</span>),age65,agesp1,agesp2)</span>
-<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a>expectDiff<span class="ot">=</span><span class="fu">t</span>(AGE)<span class="sc">%*%</span><span class="fu">coefficients</span>(mlr.fit)[<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>]</span>
-<span id="cb11-177"><a href="#cb11-177" aria-hidden="true" tabindex="-1"></a>V <span class="ot">=</span> <span class="fu">vcov</span>(mlr.fit)[<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>,<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>]</span>
-<span id="cb11-178"><a href="#cb11-178" aria-hidden="true" tabindex="-1"></a>V.big <span class="ot">=</span> <span class="fu">t</span>(AGE)<span class="sc">%*%</span>V<span class="sc">%*%</span>AGE</span>
-<span id="cb11-179"><a href="#cb11-179" aria-hidden="true" tabindex="-1"></a>var <span class="ot">=</span> <span class="fu">diag</span>(V.big)</span>
-<span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a>diffage <span class="ot">=</span> <span class="fu">data.frame</span>(age,</span>
-<span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a>          <span class="at">expectDiff =</span> expectDiff<span class="sc">/</span><span class="dv">1000</span>,</span>
-<span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a>          <span class="at">std =</span> <span class="fu">sqrt</span>(var),</span>
-<span id="cb11-183"><a href="#cb11-183" aria-hidden="true" tabindex="-1"></a>          <span class="at">min =</span> (expectDiff<span class="fl">-1.96</span><span class="sc">*</span><span class="fu">sqrt</span>(var))<span class="sc">/</span><span class="dv">1000</span>,</span>
-<span id="cb11-184"><a href="#cb11-184" aria-hidden="true" tabindex="-1"></a>          <span class="at">max =</span>(expectDiff<span class="fl">+1.96</span><span class="sc">*</span><span class="fu">sqrt</span>(var))<span class="sc">/</span><span class="dv">1000</span>)</span>
-<span id="cb11-185"><a href="#cb11-185" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diffage,<span class="fu">aes</span>(<span class="at">x =</span> age,<span class="at">y =</span> expectDiff)) <span class="sc">+</span></span>
-<span id="cb11-186"><a href="#cb11-186" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> diffage) <span class="sc">+</span></span>
-<span id="cb11-187"><a href="#cb11-187" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>,<span class="at">col =</span> <span class="st">'blue'</span>,<span class="at">data=</span> diffage, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb11-188"><a href="#cb11-188" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>min,<span class="at">ymax =</span>max),<span class="at">alpha =</span><span class="fl">0.5</span>,<span class="at">data=</span> diffage) <span class="sc">+</span></span>
-<span id="cb11-189"><a href="#cb11-189" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">12</span>,<span class="dv">1</span>),<span class="at">limits=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">12</span>)) <span class="sc">+</span></span>
-<span id="cb11-190"><a href="#cb11-190" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">65</span>,<span class="dv">95</span>,<span class="dv">5</span>),<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">65</span>,<span class="dv">95</span>)) <span class="sc">+</span></span>
-<span id="cb11-191"><a href="#cb11-191" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Difference (Female - Male, in $1000s)"</span>, <span class="at">x =</span> <span class="st">"Age (in years)"</span>) <span class="sc">+</span></span>
-<span id="cb11-192"><a href="#cb11-192" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() </span>
-<span id="cb11-193"><a href="#cb11-193" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-194"><a href="#cb11-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-195"><a href="#cb11-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-196"><a href="#cb11-196" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Step 3: linear regression model with age</span></span>
-<span id="cb11-197"><a href="#cb11-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-198"><a href="#cb11-198" aria-hidden="true" tabindex="-1"></a>**Further, we want to test the null hypothesis that on average, males and females use the same quantity of medical services; i.e. are the mean expenditures at any age the same for males and females?**</span>
-<span id="cb11-199"><a href="#cb11-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-200"><a href="#cb11-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-201"><a href="#cb11-201" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb11-202"><a href="#cb11-202" aria-hidden="true" tabindex="-1"></a>\begin{align*}</span>
-<span id="cb11-203"><a href="#cb11-203" aria-hidden="true" tabindex="-1"></a>H_0: &amp; \ \beta_4 = \beta_5 = \beta_6 = \beta_7 = 0 <span class="sc">\\</span></span>
-<span id="cb11-204"><a href="#cb11-204" aria-hidden="true" tabindex="-1"></a>H_a: &amp; \ \text{at least one of } \beta_4, \beta_5, \beta_6, \text{ or } \beta_7 \text{ is not zero.}</span>
-<span id="cb11-205"><a href="#cb11-205" aria-hidden="true" tabindex="-1"></a>\end{align*}</span>
-<span id="cb11-206"><a href="#cb11-206" aria-hidden="true" tabindex="-1"></a>$$ </span>
-<span id="cb11-207"><a href="#cb11-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-208"><a href="#cb11-208" aria-hidden="true" tabindex="-1"></a>**We can fit a reduced a model with only age-related predictors:**</span>
-<span id="cb11-209"><a href="#cb11-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-210"><a href="#cb11-210" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb11-211"><a href="#cb11-211" aria-hidden="true" tabindex="-1"></a>\begin{align*}</span>
-<span id="cb11-212"><a href="#cb11-212" aria-hidden="true" tabindex="-1"></a>Y_i = &amp; \ \beta_0 + \beta_1(age_i-65) + \beta_2(age_i-75)^+ + \beta_3(age_i-85)^+ + \epsilon_i \text{ , } <span class="sc">\\</span></span>
-<span id="cb11-213"><a href="#cb11-213" aria-hidden="true" tabindex="-1"></a>      &amp; \ \text{where } \epsilon_i \sim N(0, \sigma^2)</span>
-<span id="cb11-214"><a href="#cb11-214" aria-hidden="true" tabindex="-1"></a>\end{align*}</span>
-<span id="cb11-215"><a href="#cb11-215" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb11-147"><a href="#cb11-147" aria-hidden="true" tabindex="-1"></a>**Zoom in on the plot to show the average medical expenditures for females and males across age.**</span>
+<span id="cb11-148"><a href="#cb11-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-149"><a href="#cb11-149" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig.cap="Figure 4: Zoomed in plot of medical expenditures in thousands of dollars by gender for participants above 65 years old, with the fitted lines estimated from the full linear regression model.", warning=FALSE}</span></span>
+<span id="cb11-150"><a href="#cb11-150" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d, <span class="fu">aes</span>(<span class="at">x =</span> lastage, <span class="at">y =</span> observed_y, <span class="at">color=</span>Gender)) <span class="sc">+</span></span>
+<span id="cb11-151"><a href="#cb11-151" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb11-152"><a href="#cb11-152" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> lastage, <span class="at">y =</span> predicted_y)) <span class="sc">+</span></span>
+<span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">15</span>,<span class="dv">5</span>),<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">15</span>)) <span class="sc">+</span></span>
+<span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">65</span>,<span class="dv">95</span>,<span class="dv">5</span>),<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">65</span>,<span class="dv">95</span>)) <span class="sc">+</span></span>
+<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Age (in years)"</span>, <span class="at">y =</span> <span class="st">"Medical Expenditure (in $1000s)"</span>, <span class="at">title =</span> <span class="st">"Medical Expenditures (in $1000s) by Age and Gender with fitted line"</span>) <span class="sc">+</span></span>
+<span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span>
+<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a>**Plot expected difference between women and men in expenditures as a function of age.**</span>
+<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig.cap="Figure 5: Expected difference between women and men in medical expenditures as a function of age. The dotted line indicates no difference. 95% confidence interval is illustrated in the shaded region.", warning=FALSE}</span></span>
+<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a>age <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">65</span>,<span class="dv">95</span>)</span>
+<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a>agesp1 <span class="ot">=</span> <span class="fu">ifelse</span>(age<span class="sc">&gt;=</span><span class="dv">75</span>,age<span class="dv">-75</span>,<span class="dv">0</span>)</span>
+<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a>agesp2 <span class="ot">=</span> <span class="fu">ifelse</span>(age<span class="sc">&gt;=</span><span class="dv">85</span>,age<span class="dv">-85</span>,<span class="dv">0</span>)</span>
+<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a>age65 <span class="ot">=</span> age<span class="dv">-65</span></span>
+<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a>AGE <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">31</span>),age65,agesp1,agesp2)</span>
+<span id="cb11-167"><a href="#cb11-167" aria-hidden="true" tabindex="-1"></a>expectDiff<span class="ot">=</span><span class="fu">t</span>(AGE)<span class="sc">%*%</span><span class="fu">coefficients</span>(mlr.fit)[<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>]</span>
+<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a>V <span class="ot">=</span> <span class="fu">vcov</span>(mlr.fit)[<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>,<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>]</span>
+<span id="cb11-169"><a href="#cb11-169" aria-hidden="true" tabindex="-1"></a>V.big <span class="ot">=</span> <span class="fu">t</span>(AGE)<span class="sc">%*%</span>V<span class="sc">%*%</span>AGE</span>
+<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a>var <span class="ot">=</span> <span class="fu">diag</span>(V.big)</span>
+<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a>diffage <span class="ot">=</span> <span class="fu">data.frame</span>(age,</span>
+<span id="cb11-172"><a href="#cb11-172" aria-hidden="true" tabindex="-1"></a>          <span class="at">expectDiff =</span> expectDiff<span class="sc">/</span><span class="dv">1000</span>,</span>
+<span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a>          <span class="at">std =</span> <span class="fu">sqrt</span>(var),</span>
+<span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a>          <span class="at">min =</span> (expectDiff<span class="fl">-1.96</span><span class="sc">*</span><span class="fu">sqrt</span>(var))<span class="sc">/</span><span class="dv">1000</span>,</span>
+<span id="cb11-175"><a href="#cb11-175" aria-hidden="true" tabindex="-1"></a>          <span class="at">max =</span>(expectDiff<span class="fl">+1.96</span><span class="sc">*</span><span class="fu">sqrt</span>(var))<span class="sc">/</span><span class="dv">1000</span>)</span>
+<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diffage,<span class="fu">aes</span>(<span class="at">x =</span> age,<span class="at">y =</span> expectDiff)) <span class="sc">+</span></span>
+<span id="cb11-177"><a href="#cb11-177" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data =</span> diffage) <span class="sc">+</span></span>
+<span id="cb11-178"><a href="#cb11-178" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>,<span class="at">col =</span> <span class="st">'blue'</span>,<span class="at">data=</span> diffage, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb11-179"><a href="#cb11-179" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>min,<span class="at">ymax =</span>max),<span class="at">alpha =</span><span class="fl">0.5</span>,<span class="at">data=</span> diffage) <span class="sc">+</span></span>
+<span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">12</span>,<span class="dv">1</span>),<span class="at">limits=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">12</span>)) <span class="sc">+</span></span>
+<span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">65</span>,<span class="dv">95</span>,<span class="dv">5</span>),<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">65</span>,<span class="dv">95</span>)) <span class="sc">+</span></span>
+<span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Difference (Female - Male, in $1000s)"</span>, <span class="at">x =</span> <span class="st">"Age (in years)"</span>) <span class="sc">+</span></span>
+<span id="cb11-183"><a href="#cb11-183" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() </span>
+<span id="cb11-184"><a href="#cb11-184" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-185"><a href="#cb11-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-186"><a href="#cb11-186" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Step 3: linear regression model with age</span></span>
+<span id="cb11-187"><a href="#cb11-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-188"><a href="#cb11-188" aria-hidden="true" tabindex="-1"></a>**Further, we want to test the null hypothesis that on average, males and females use the same quantity of medical services; i.e. are the mean expenditures at any age the same for males and females?**</span>
+<span id="cb11-189"><a href="#cb11-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-190"><a href="#cb11-190" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb11-191"><a href="#cb11-191" aria-hidden="true" tabindex="-1"></a>\begin{align*}</span>
+<span id="cb11-192"><a href="#cb11-192" aria-hidden="true" tabindex="-1"></a>H_0: &amp; \ \beta_4 = \beta_5 = \beta_6 = \beta_7 = 0 <span class="sc">\\</span></span>
+<span id="cb11-193"><a href="#cb11-193" aria-hidden="true" tabindex="-1"></a>H_a: &amp; \ \text{at least one of } \beta_4, \beta_5, \beta_6, \text{ or } \beta_7 \text{ is not zero.}</span>
+<span id="cb11-194"><a href="#cb11-194" aria-hidden="true" tabindex="-1"></a>\end{align*}</span>
+<span id="cb11-195"><a href="#cb11-195" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb11-196"><a href="#cb11-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-197"><a href="#cb11-197" aria-hidden="true" tabindex="-1"></a>**We can fit a reduced a model with only age-related predictors:**</span>
+<span id="cb11-198"><a href="#cb11-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-199"><a href="#cb11-199" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb11-200"><a href="#cb11-200" aria-hidden="true" tabindex="-1"></a>\begin{align*}</span>
+<span id="cb11-201"><a href="#cb11-201" aria-hidden="true" tabindex="-1"></a>Y_i = &amp; \ \beta_0 + \beta_1(age_i-65) + \beta_2(age_i-75)^+ + \beta_3(age_i-85)^+ + \epsilon_i \text{ , } <span class="sc">\\</span></span>
+<span id="cb11-202"><a href="#cb11-202" aria-hidden="true" tabindex="-1"></a>      &amp; \ \text{where } \epsilon_i \sim N(0, \sigma^2)</span>
+<span id="cb11-203"><a href="#cb11-203" aria-hidden="true" tabindex="-1"></a>\end{align*}</span>
+<span id="cb11-204"><a href="#cb11-204" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb11-205"><a href="#cb11-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-206"><a href="#cb11-206" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, message=FALSE}</span></span>
+<span id="cb11-207"><a href="#cb11-207" aria-hidden="true" tabindex="-1"></a>mlr.fit0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(totalexp <span class="sc">~</span> agem65 <span class="sc">+</span> age_sp1 <span class="sc">+</span> age_sp2, <span class="at">data =</span> d)</span>
+<span id="cb11-208"><a href="#cb11-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-209"><a href="#cb11-209" aria-hidden="true" tabindex="-1"></a>tidy_mlr.fit0 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(mlr.fit0)</span>
+<span id="cb11-210"><a href="#cb11-210" aria-hidden="true" tabindex="-1"></a>tidy_mlr.fit0 <span class="ot">&lt;-</span> tidy_mlr.fit0[, <span class="fu">c</span>(<span class="st">"term"</span>, <span class="st">"estimate"</span>, <span class="st">"std.error"</span>, <span class="st">"statistic"</span>, <span class="st">"p.value"</span>)]</span>
+<span id="cb11-211"><a href="#cb11-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-212"><a href="#cb11-212" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tidy_mlr.fit0, <span class="at">caption =</span> <span class="st">"Linear model coefficients of the reduced model"</span>, <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">format =</span> <span class="st">"html"</span>, </span>
+<span id="cb11-213"><a href="#cb11-213" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Term"</span>, <span class="st">"Estimate"</span>, <span class="st">"Std. Error"</span>, <span class="st">"t value"</span>, <span class="st">"Pr(&gt;|t|)"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-214"><a href="#cb11-214" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>), <span class="at">full_width =</span> F, <span class="at">position =</span> <span class="st">"left"</span>)</span>
+<span id="cb11-215"><a href="#cb11-215" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb11-216"><a href="#cb11-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-217"><a href="#cb11-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-218"><a href="#cb11-218" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, message=FALSE}</span></span>
-<span id="cb11-219"><a href="#cb11-219" aria-hidden="true" tabindex="-1"></a>mlr.fit0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(totalexp <span class="sc">~</span> agem65 <span class="sc">+</span> age_sp1 <span class="sc">+</span> age_sp2, <span class="at">data =</span> d)</span>
-<span id="cb11-220"><a href="#cb11-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-221"><a href="#cb11-221" aria-hidden="true" tabindex="-1"></a>tidy_mlr.fit0 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(mlr.fit0)</span>
-<span id="cb11-222"><a href="#cb11-222" aria-hidden="true" tabindex="-1"></a>tidy_mlr.fit0 <span class="ot">&lt;-</span> tidy_mlr.fit0[, <span class="fu">c</span>(<span class="st">"term"</span>, <span class="st">"estimate"</span>, <span class="st">"std.error"</span>, <span class="st">"statistic"</span>, <span class="st">"p.value"</span>)]</span>
-<span id="cb11-223"><a href="#cb11-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-224"><a href="#cb11-224" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tidy_mlr.fit0, <span class="at">caption =</span> <span class="st">"Linear model coefficients of the reduced model"</span>, <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">format =</span> <span class="st">"html"</span>, </span>
-<span id="cb11-225"><a href="#cb11-225" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Term"</span>, <span class="st">"Estimate"</span>, <span class="st">"Std. Error"</span>, <span class="st">"t value"</span>, <span class="st">"Pr(&gt;|t|)"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb11-226"><a href="#cb11-226" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>), <span class="at">full_width =</span> F, <span class="at">position =</span> <span class="st">"left"</span>)</span>
-<span id="cb11-227"><a href="#cb11-227" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-217"><a href="#cb11-217" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, message=FALSE}</span></span>
+<span id="cb11-218"><a href="#cb11-218" aria-hidden="true" tabindex="-1"></a><span class="co"># likelihood ratio test</span></span>
+<span id="cb11-219"><a href="#cb11-219" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb11-220"><a href="#cb11-220" aria-hidden="true" tabindex="-1"></a><span class="fu">lrtest</span>(mlr.fit0, mlr.fit)</span>
+<span id="cb11-221"><a href="#cb11-221" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-222"><a href="#cb11-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-223"><a href="#cb11-223" aria-hidden="true" tabindex="-1"></a>**A likelihood ratio test showed that the reduced model and the full model are not significantly different from each other ($p=0.2715$), indicating we fail to reject the null hypothesis and that the mean expenditures at any age are the same for males and females.**</span>
+<span id="cb11-224"><a href="#cb11-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-225"><a href="#cb11-225" aria-hidden="true" tabindex="-1"></a><span class="fu">### Results and Summary</span></span>
+<span id="cb11-226"><a href="#cb11-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-227"><a href="#cb11-227" aria-hidden="true" tabindex="-1"></a>In this example analysis, we utilized the data from 1987 National Medical Expenditure Survey (NMES) to examine the annual change of total medical expenditure for older people (from age 65 to 94) and its relationship with sex. We first fitted a linear spline regression model on total medical expenditure with age and sex and the interaction between the two factors. The regression result showed that none of the predictors of age and sex were significant except for the intercept, even though the scatter plot indicated some disparity between male and female at age 65 - 75 and above 85 (Figure 4). The 95% confidence interval for estimated difference in average expenditures comparing men and women as a function of age suggested no significant difference due to sex (Figure 5). We performed a likelihood ratio test to compare the full model with a reduced model excluding the factor sex and concluded that we failed to reject the null hypothesis that men and women have the same quantity of medical expenditures at any age.</span>
 <span id="cb11-228"><a href="#cb11-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-229"><a href="#cb11-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-230"><a href="#cb11-230" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, message=FALSE}</span></span>
-<span id="cb11-231"><a href="#cb11-231" aria-hidden="true" tabindex="-1"></a><span class="co"># likelihood ratio test</span></span>
-<span id="cb11-232"><a href="#cb11-232" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb11-233"><a href="#cb11-233" aria-hidden="true" tabindex="-1"></a><span class="fu">lrtest</span>(mlr.fit0, mlr.fit)</span>
-<span id="cb11-234"><a href="#cb11-234" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-235"><a href="#cb11-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-236"><a href="#cb11-236" aria-hidden="true" tabindex="-1"></a>**A likelihood ratio test showed that the reduced model and the full model are not significantly different from each other ($p=0.2715$), indicating we fail to reject the null hypothesis and that the mean expenditures at any age are the same for males and females.**</span>
-<span id="cb11-237"><a href="#cb11-237" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-238"><a href="#cb11-238" aria-hidden="true" tabindex="-1"></a><span class="fu">### Results and Summary</span></span>
-<span id="cb11-239"><a href="#cb11-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-240"><a href="#cb11-240" aria-hidden="true" tabindex="-1"></a>In this example analysis, we utilized the data from 1987 National Medical Expenditure Survey (NMES) to examine the annual change of total medical expenditure for older people (from age 65 to 94) and its relationship with sex. We first fitted a linear spline regression model on total medical expenditure with age and sex and the interaction between the two factors. The regression result showed that none of the predictors of age and sex were significant except for the intercept, even though the scatter plot indicated some disparity between male and female at age 65 - 75 and above 85 (Figure 4). The 95% confidence interval for estimated difference in average expenditures comparing men and women as a function of age suggested no significant difference due to sex (Figure 5). We performed a likelihood ratio test to compare the full model with a reduced model excluding the factor sex and concluded that we failed to reject the null hypothesis that men and women have the same quantity of medical expenditures at any age.</span>
+<span id="cb11-229"><a href="#cb11-229" aria-hidden="true" tabindex="-1"></a>::: {.callout-important collapse="false"}</span>
+<span id="cb11-230"><a href="#cb11-230" aria-hidden="true" tabindex="-1"></a>This analysis is based on the assumption that residuals are normally distributed and homoscedastic, which requires further validation. If such assumptions are violated, standard errors and confidence intervals are likely biased, and a more appropriate analysis approach need to be adapted.</span>
+<span id="cb11-231"><a href="#cb11-231" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb11-232"><a href="#cb11-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-233"><a href="#cb11-233" aria-hidden="true" tabindex="-1"></a>However, more recent analyses indeed demonstrated noticeable discrepancy between female and male in healthcare expenses. The Kaiser Family Foundation analysis of CMS Medicare Current Beneficiary Survey 2009 Cost and Use file <span class="co">[</span><span class="ot">@KFF</span><span class="co">]</span> showed that out-of-pocket spending by elder female is higher than that by male while more proportion of women had annual incomes below \$20,000 compared to men (Figure 6). Thus, it is important for health policymakers to consider various factors regarding medical expenditures, such as socioeconomic status and etc., before coming to any conclusions.</span>
+<span id="cb11-234"><a href="#cb11-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-235"><a href="#cb11-235" aria-hidden="true" tabindex="-1"></a><span class="al">![Figure 6: Income and out-of-pocket expenses among older medicare beneficiaries, by gender and age](images/healthcare_2009.webp)</span>{width="500px"}</span>
+<span id="cb11-236"><a href="#cb11-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-237"><a href="#cb11-237" aria-hidden="true" tabindex="-1"></a><span class="fu">### Functions</span></span>
+<span id="cb11-238"><a href="#cb11-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-239"><a href="#cb11-239" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`dplyr`</span>: <span class="in">`select()`</span>, <span class="in">`filter()`</span>, <span class="in">`mutate()`</span>, <span class="in">`group_by()`</span>,<span class="in">`summarise()`</span></span>
+<span id="cb11-240"><a href="#cb11-240" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`ggplot2`</span>: <span class="in">`geom_point()`</span>, <span class="in">`geom_jitter`</span>, <span class="in">`geom_line`</span>, <span class="in">`geom_hline`</span>, <span class="in">`geom_ribbon`</span></span>
 <span id="cb11-241"><a href="#cb11-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-242"><a href="#cb11-242" aria-hidden="true" tabindex="-1"></a>::: {.callout-important collapse="true"}</span>
-<span id="cb11-243"><a href="#cb11-243" aria-hidden="true" tabindex="-1"></a>This analysis is based on the assumption that residuals are normally distributed and homoscedastic, which requires further validation. If such assumptions are violated, standard errors and confidence intervals are likely biased, and a more appropriate analysis approach need to be adapted.</span>
-<span id="cb11-244"><a href="#cb11-244" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-245"><a href="#cb11-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-246"><a href="#cb11-246" aria-hidden="true" tabindex="-1"></a>However, more recent analyses indeed demonstrated noticeable discrepancy between female and male in healthcare expenses. The Kaiser Family Foundation analysis of CMS Medicare Current Beneficiary Survey 2009 Cost and Use file <span class="co">[</span><span class="ot">@KFF</span><span class="co">]</span> showed that out-of-pocket spending by elder female is higher than that by male while more proportion of women had annual incomes below \$20,000 compared to men (Figure 6). Thus, it is important for health policymakers to consider various factors regarding medical expenditures, such as socioeconomic status and etc., before coming to any conclusions.</span>
-<span id="cb11-247"><a href="#cb11-247" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-248"><a href="#cb11-248" aria-hidden="true" tabindex="-1"></a><span class="al">![Figure 6: Income and out-of-pocket expenses among older medicare beneficiaries, by gender and age](images/healthcare_2009.webp)</span>{width="500px"}</span>
-<span id="cb11-249"><a href="#cb11-249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-250"><a href="#cb11-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-251"><a href="#cb11-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-252"><a href="#cb11-252" aria-hidden="true" tabindex="-1"></a><span class="fu">### Functions</span></span>
-<span id="cb11-253"><a href="#cb11-253" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`dplyr`</span>: <span class="in">`select()`</span>, <span class="in">`filter()`</span>, <span class="in">`mutate()`</span>, <span class="in">`group_by()`</span>,<span class="in">`summarise()`</span></span>
-<span id="cb11-254"><a href="#cb11-254" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`ggplot2`</span>: <span class="in">`geom_point()`</span>, <span class="in">`geom_jitter`</span>, <span class="in">`geom_line`</span>, <span class="in">`geom_hline`</span>, <span class="in">`geom_ribbon`</span></span>
-<span id="cb11-255"><a href="#cb11-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-256"><a href="#cb11-256" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb11-257"><a href="#cb11-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-258"><a href="#cb11-258" aria-hidden="true" tabindex="-1"></a>:::{#bibliography}</span>
-<span id="cb11-259"><a href="#cb11-259" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-260"><a href="#cb11-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-261"><a href="#cb11-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-242"><a href="#cb11-242" aria-hidden="true" tabindex="-1"></a>::: {#bibliography}</span>
+<span id="cb11-243"><a href="#cb11-243" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
